@@ -1,7 +1,11 @@
 const Video = require("../models/video-model");
 
-addVideo = (req, res) => {
+addVideo = async (req, res) => {
   const body = req.body;
+  const video = new Video({
+    title: req.body.title,
+    videoId: req.body.title
+  });
 
   if (!body) {
     return res.status(400).json({
@@ -10,20 +14,14 @@ addVideo = (req, res) => {
     });
   }
 
-  const video = new Video(body);
-
   if (!video) {
     return res.status(400).json({ success: false, error: err });
   }
 
   video
     .save()
-    .then(() => {
-      return res.status(201).json({
-        success: true,
-        id: movie._id,
-        message: "Video added!"
-      });
+    .then(results => {
+      console.log(results);
     })
     .catch(error => {
       return res.status(400).json({
