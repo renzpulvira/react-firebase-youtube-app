@@ -40,7 +40,7 @@ class Searchbar extends React.Component {
           });
         });
       })
-      .then(this.props.search(holder));
+      .then(() => this.props.search(holder));
   }
 
   handleSubmit(e) {
@@ -58,7 +58,7 @@ class Searchbar extends React.Component {
         <input
           type="submit"
           value="search"
-          onSubmit={() => this.callFunc(this.state.term)}
+          onClick={() => this.callFunc(this.state.term)}
         />
       </form>
     );
