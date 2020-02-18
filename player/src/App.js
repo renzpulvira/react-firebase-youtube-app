@@ -38,7 +38,6 @@ class App extends React.Component {
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${ytId}`}
           playing={this.state.isPlaying}
-          onReady={() => this.setState({ isPlaying: true })}
         />
         <button onClick={() => this.setState({ isPlaying: true })}>Play</button>
         <button onClick={() => this.setState({ isPlaying: false })}>
@@ -54,14 +53,17 @@ class App extends React.Component {
       <React.Fragment>
         <Searchbar search={this.getSearchResults} />
         {/* <Results search={this.state.results} /> */}
-        <ul>
+        <Results
+          style={{ display: "inline-block", padding: "0px", margin: "0px" }}
+          search={this.state.results}
+        />
+        {/* <ul style={{ display: "inline-block", padding: "0px", margin: "0px" }}>
           {this.state.results.map(x => (
-            <li>
-              <p>{x.title}</p>
-              <span>{x.videoId}</span>
+            <li style={{ display: "inline-block" }}>
+              <img src={x.thumbs}></img>
             </li>
           ))}
-        </ul>
+        </ul> */}
         {this.state.results.length > 0
           ? this.renderPlayer(this.state.results[0].videoId)
           : "No Data yet"}

@@ -35,8 +35,10 @@ class Searchbar extends React.Component {
       .then(res => {
         return res.items.map(x => {
           holder.push({
+            itemId: x.etag,
             videoId: x.id.videoId,
-            title: x.snippet.title
+            title: x.snippet.title,
+            thumbs: x.snippet.thumbnails.medium.url
           });
         });
       })
