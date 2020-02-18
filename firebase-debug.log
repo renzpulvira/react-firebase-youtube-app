@@ -1,0 +1,42 @@
+[debug] [2020-02-18T15:49:52.088Z] ----------------------------------------------------------------------
+[debug] [2020-02-18T15:49:52.090Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\linum\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-02-18T15:49:52.090Z] CLI Version:   7.13.0
+[debug] [2020-02-18T15:49:52.090Z] Platform:      win32
+[debug] [2020-02-18T15:49:52.091Z] Node Version:  v12.13.1
+[debug] [2020-02-18T15:49:52.091Z] Time:          Tue Feb 18 2020 23:49:52 GMT+0800 (Singapore Standard Time)
+[debug] [2020-02-18T15:49:52.091Z] ----------------------------------------------------------------------
+[debug] [2020-02-18T15:49:52.091Z] 
+[debug] [2020-02-18T15:49:52.098Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-18T15:49:52.098Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\linum\Documents\temp\playlist-app
+
+[debug] [2020-02-18T15:50:45.982Z] ----------------------------------------------------------------------
+[debug] [2020-02-18T15:50:45.984Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\linum\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-02-18T15:50:45.984Z] CLI Version:   7.13.0
+[debug] [2020-02-18T15:50:45.984Z] Platform:      win32
+[debug] [2020-02-18T15:50:45.984Z] Node Version:  v12.13.1
+[debug] [2020-02-18T15:50:45.985Z] Time:          Tue Feb 18 2020 23:50:45 GMT+0800 (Singapore Standard Time)
+[debug] [2020-02-18T15:50:45.985Z] ----------------------------------------------------------------------
+[debug] [2020-02-18T15:50:45.985Z] 
+[debug] [2020-02-18T15:50:45.992Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-18T15:50:45.992Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\linum\Documents\temp\playlist-app
+

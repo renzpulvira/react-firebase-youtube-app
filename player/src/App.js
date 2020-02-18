@@ -2,7 +2,7 @@ import React from "react";
 import ReactPlayer from "react-player";
 import Results from "./components/Results";
 import Searchbar from "./components/Searchbar";
-import Test from "./components/Test";
+import firebaseConfig from "./config/Config";
 
 class App extends React.Component {
   constructor() {
