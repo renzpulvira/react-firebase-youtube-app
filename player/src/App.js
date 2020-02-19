@@ -2,16 +2,23 @@ import React from "react";
 import ReactPlayer from "react-player";
 import Results from "./components/Results";
 import Searchbar from "./components/Searchbar";
-import firebaseConfig from "./config/Config";
+import { firebaseConfig } from "./config/Config";
+import firebase from "firebase/app";
 
 class App extends React.Component {
   constructor() {
     super();
+    this.app = firebase.initializeApp(firebaseConfig);
+
     this.state = {
       isPlaying: false,
       results: [],
       term: ""
     };
+  }
+
+  componentWillMount() {
+    console.log(this.app);
   }
 
   toggleButton() {
