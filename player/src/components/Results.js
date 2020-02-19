@@ -1,8 +1,32 @@
 import React, { useEffect, useState } from "react";
 import ResultsList from "./ResultsList";
+import "firebase/firestore";
 
-export default function Results({ search } = this.props) {
+import firebase from "../firebase";
+
+function GetQueueDb() {
+  const [queueDb, setQueueDb] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("queues")
+      .onSnapshot(snapshot => {
+        const newQueues = snapshot.docs.map(queue => ({
+          id: queue.id,
+          ...queue.data()
+        }));
+
+        setQueueDb(newQueues);
+      });
+    return () => unsubscribe();
+  }, []);
+  return queueDb;
+}
+
+const Results = ({ search } = this.props) => {
   const [counter, setCounter] = useState([]);
+  const currQueues = GetQueueDb();
 
   useEffect(() => {
     setCounter(search);
@@ -10,7 +34,13 @@ export default function Results({ search } = this.props) {
 
   return (
     <ul>
-      {counter.map(x => (
+      {currQueues.map(x => (
+        <li>
+          <p>{x.videoTitle}</p>
+          <p>{x.videoId}</p>
+        </li>
+      ))}
+      {/* {counter.map(x => (
         <ResultsList
           key={x.itemId}
           etag={x.itemId}
@@ -18,7 +48,9 @@ export default function Results({ search } = this.props) {
           video={x.videoId}
           thumbs={x.thumbs}
         />
-      ))}
+      ))} */}
     </ul>
   );
-}
+};
+
+export default Results;
