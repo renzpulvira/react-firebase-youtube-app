@@ -1,16 +1,17 @@
 import React from "react";
 
-export default function ResultsList(
-  { etag, title, video, thumbs } = this.props
-) {
+const ResultsList = ({ etag, thumbs } = this.props) => {
   return (
     <li
+      style={{ display: "inline-block" }}
       data-etag={etag}
-      onClick={e => console.log(e.target.getAttribute("data-etag"))}
+      onClick={e => console.log(e.currentTarget.attributes["data-etag"].value)}
     >
       <img src={thumbs} alt="" />
-      <p>{title}</p>
-      <span>{video}</span>
+      {/* <p>{title}</p>
+      <span>{video}</span> */}
     </li>
   );
-}
+};
+
+export default ResultsList;
