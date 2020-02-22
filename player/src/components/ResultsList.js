@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import firebase from "../firebase";
 
-const ResultsList = ({ etag, thumbs } = this.props) => {
+const ResultsList = ({ thumbs, title, video, nextOrder } = this.props) => {
+  const handleClick = param => e => {
+    const { thumbs, title, video, nextOrder } = param;
+    firebase
+      .firestore()
+      .collection("queues")
+      .add({
+        videoOrder: nextOrder,
+        videoId: video,
+        videoThumbs: thumbs,
+        videoTitle: title
+      })
+      .then(console.log(param));
+  };
+
   return (
     <li
-      style={{ display: "inline-block" }}
-      data-etag={etag}
-      onClick={e => console.log(e.currentTarget.attributes["data-etag"].value)}
+      data-next={nextOrder}
+      data-thumbs={thumbs}
+      data-title={title}
+      data-title={video}
+      onClick={handleClick({ thumbs, title, video, nextOrder })}
     >
       <img src={thumbs} alt="" />
-      {/* <p>{title}</p>
-      <span>{video}</span> */}
     </li>
   );
 };

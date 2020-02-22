@@ -1,0 +1,20 @@
+.compo-results {
+  overflow-x: scroll;
+
+  ul {
+    display: inline-block;
+    width: 142vw;
+    margin: 0;
+    padding: 10px 15px;
+  }
+
+  ul li {
+    display: inline-block;
+    margin-right: 15px;
+    border-radius: 15px;
+
+    img {
+      border-radius: 15px;
+    }
+  }
+}

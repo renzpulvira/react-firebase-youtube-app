@@ -1,0 +1,30 @@
+.compo-searchbar {
+  display: flex;
+  font-family: "sans-serif";
+  height: 40px;
+
+  input {
+    border: 1px solid #555;
+    color: #999;
+    background: transparent;
+    outline: 0;
+  }
+
+  input:first-child {
+    flex: 1;
+    order: 2;
+    padding: 10px;
+    border: 1px so;
+  }
+
+  input:last-child {
+    order: 1;
+    padding: 0 15px;
+    font-family: "verdana";
+    letter-spacing: 0.04em;
+    width: 100%;
+    max-width: 90px;
+    cursor: pointer;
+    border-right: 0;
+  }
+}

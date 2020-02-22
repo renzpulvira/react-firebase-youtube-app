@@ -2,8 +2,8 @@ import React from "react";
 import ReactPlayer from "react-player";
 import Results from "./components/Results";
 import Searchbar from "./components/Searchbar";
-import { firebaseConfig } from "./config/Config";
-import firebase from "firebase/app";
+import Queues from "./components/Queues";
+import firebase from "firebase";
 import "firebase/firestore";
 
 class App extends React.Component {
@@ -13,7 +13,8 @@ class App extends React.Component {
     this.state = {
       isPlaying: false,
       results: [],
-      term: ""
+      term: "",
+      countList: 0
     };
   }
 
@@ -40,15 +41,28 @@ class App extends React.Component {
     );
   }
 
+  componentWillMount() {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("queues")
+      .onSnapshot(snapshot => {
+        const newQueues = snapshot.docs.map(queue => ({
+          id: queue.id,
+          ...queue.data()
+        }));
+
+        this.setState({ countList: newQueues.length });
+      });
+    return () => unsubscribe();
+  }
+
   // https://www.youtube.com/watch?v=ELrQyUIQkiY
   render() {
     return (
       <React.Fragment>
         <Searchbar search={this.getSearchResults} />
-        <Results
-          style={{ display: "inline-block", padding: "0px", margin: "0px" }}
-          search={this.state.results}
-        />
+        <Results search={this.state.results} listCount={this.state.countList} />
+        {this.state.countList > 0 ? <Queues /> : <p>No list yet</p>}
       </React.Fragment>
     );
   }

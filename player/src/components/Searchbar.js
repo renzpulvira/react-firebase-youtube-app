@@ -25,7 +25,9 @@ class Searchbar extends React.Component {
   }
 
   callFunc(term) {
+    let getDate = new Date();
     let holder = [];
+
     searchYoutube(this.state.API_KEY, {
       q: term,
       part: "snippet",
@@ -33,9 +35,9 @@ class Searchbar extends React.Component {
       maxResults: 8
     })
       .then(res => {
-        return res.items.map(x => {
+        return res.items.map((x, index) => {
           holder.push({
-            itemId: x.etag,
+            itemOrder: index,
             videoId: x.id.videoId,
             title: x.snippet.title,
             thumbs: x.snippet.thumbnails.medium.url
@@ -49,9 +51,13 @@ class Searchbar extends React.Component {
     e.preventDefault();
   }
 
+  componentDidMount() {
+    this.callFunc(this.state.options.q);
+  }
+
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="compo-searchbar" onSubmit={this.handleSubmit}>
         <input
           placeholder="insert Something"
           //onChange={e => this.sendData(e.target.value)}
