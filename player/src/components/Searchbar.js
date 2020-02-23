@@ -35,9 +35,8 @@ class Searchbar extends React.Component {
       maxResults: 8
     })
       .then(res => {
-        return res.items.map((x, index) => {
+        return res.items.map(x => {
           holder.push({
-            itemOrder: index,
             videoId: x.id.videoId,
             title: x.snippet.title,
             thumbs: x.snippet.thumbnails.medium.url

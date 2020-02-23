@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import "firebase/firestore";
 import firebase from "../firebase";
 
+const DeleteQueueData = param => e => {
+  firebase
+    .firestore()
+    .collection("queues")
+    .doc(param)
+    .delete();
+};
+
 function GetQueueDb() {
   const [queueDb, setQueueDb] = useState([]);
 
@@ -9,14 +17,12 @@ function GetQueueDb() {
     const unsubscribe = firebase
       .firestore()
       .collection("queues")
-      .orderBy("videoOrder", "asc")
+      .orderBy("timestamp", "asc")
       .onSnapshot(snapshot => {
         const newQueues = snapshot.docs.map(queue => ({
           id: queue.id,
           ...queue.data()
         }));
-
-        console.log(snapshot);
 
         setQueueDb(newQueues);
       });
@@ -28,12 +34,13 @@ function GetQueueDb() {
 const Queues = () => {
   const currQueues = GetQueueDb();
   return (
-    <ul>
+    <ul className="compo-queues">
       {currQueues.map(x => (
         <li key={x.id}>
           <p>{x.videoTitle}</p>
-          {/* <p>{x.videoThumbs}</p> */}
-          {/* <p>{x.videoId}</p> */}
+          <button data-id={x.id} onClick={DeleteQueueData(x.id)}>
+            DELETE
+          </button>
         </li>
       ))}
     </ul>

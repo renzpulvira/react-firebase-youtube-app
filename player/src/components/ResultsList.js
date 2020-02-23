@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../firebase";
 
-const ResultsList = ({ thumbs, title, video, nextOrder } = this.props) => {
+const ResultsList = ({ thumbs, title, video } = this.props) => {
   const handleClick = param => e => {
-    const { thumbs, title, video, nextOrder } = param;
+    const { thumbs, title, video } = param;
     firebase
       .firestore()
       .collection("queues")
       .add({
-        videoOrder: nextOrder,
         videoId: video,
         videoThumbs: thumbs,
-        videoTitle: title
-      })
-      .then(console.log(param));
+        videoTitle: title,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
   };
 
   return (
     <li
-      data-next={nextOrder}
       data-thumbs={thumbs}
       data-title={title}
-      data-title={video}
-      onClick={handleClick({ thumbs, title, video, nextOrder })}
+      data-video={video}
+      onClick={handleClick({ thumbs, title, video })}
     >
       <img src={thumbs} alt="" />
     </li>

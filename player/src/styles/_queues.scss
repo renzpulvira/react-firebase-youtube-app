@@ -1,0 +1,18 @@
+.compo-queues {
+  width: 50%;
+
+  li {
+    position: relative;
+  }
+
+  li p {
+    color: #fff;
+  }
+
+  li button {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+}

@@ -14,7 +14,7 @@ class App extends React.Component {
       isPlaying: false,
       results: [],
       term: "",
-      countList: 0
+      queues: []
     };
   }
 
@@ -24,6 +24,24 @@ class App extends React.Component {
 
   componentDidUpdate() {
     console.warn("New Results Found");
+  }
+
+  componentWillMount() {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("queues")
+      .orderBy("timestamp", "asc")
+      .onSnapshot(snapshot => {
+        const newQueues = snapshot.docs.map(queue => ({
+          id: queue.id,
+          ...queue.data()
+        }));
+
+        this.setState({
+          queues: newQueues
+        });
+      });
+    return () => unsubscribe();
   }
 
   renderPlayer(ytId) {
@@ -41,28 +59,13 @@ class App extends React.Component {
     );
   }
 
-  componentWillMount() {
-    const unsubscribe = firebase
-      .firestore()
-      .collection("queues")
-      .onSnapshot(snapshot => {
-        const newQueues = snapshot.docs.map(queue => ({
-          id: queue.id,
-          ...queue.data()
-        }));
-
-        this.setState({ countList: newQueues.length });
-      });
-    return () => unsubscribe();
-  }
-
   // https://www.youtube.com/watch?v=ELrQyUIQkiY
   render() {
     return (
       <React.Fragment>
         <Searchbar search={this.getSearchResults} />
-        <Results search={this.state.results} listCount={this.state.countList} />
-        {this.state.countList > 0 ? <Queues /> : <p>No list yet</p>}
+        <Results searchResults={this.state.results} />
+        <Queues />
       </React.Fragment>
     );
   }
