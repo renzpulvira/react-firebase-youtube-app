@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ResultsList from "./ResultsList";
 
-const Results = ({ searchResults } = this.props) => {
+const Results = ({ searchResults, dataRef } = this.props) => {
   const [counter, setCounter] = useState([]);
 
   useEffect(() => {
@@ -11,8 +11,14 @@ const Results = ({ searchResults } = this.props) => {
   return (
     <div className="compo-results">
       <ul>
-        {counter.map(x => (
-          <ResultsList title={x.title} video={x.videoId} thumbs={x.thumbs} />
+        {counter.map((x, index) => (
+          <ResultsList
+            key={index}
+            title={x.title}
+            video={x.videoId}
+            thumbs={x.thumbs}
+            dataRef={dataRef}
+          />
         ))}
       </ul>
     </div>

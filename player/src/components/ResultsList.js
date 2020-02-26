@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../firebase";
+import firebase, { queueDb } from "../firebase";
 
-const ResultsList = ({ thumbs, title, video } = this.props) => {
+const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
   const handleClick = param => e => {
     const { thumbs, title, video } = param;
+    let holder = dataRef;
+    console.log(holder);
+    holder.push({
+      videoId: video,
+      videoThumbs: thumbs,
+      videoTitle: title
+    });
+
     firebase
       .firestore()
       .collection("queues")
-      .add({
-        videoId: video,
-        videoThumbs: thumbs,
-        videoTitle: title,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      .doc("availQueues")
+      .update({
+        queueLists: holder.map(x => x)
       });
   };
 

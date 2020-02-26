@@ -50,9 +50,9 @@ class Searchbar extends React.Component {
     e.preventDefault();
   }
 
-  componentDidMount() {
-    this.callFunc(this.state.options.q);
-  }
+  // componentDidMount() {
+  //   this.callFunc(this.state.options.q);
+  // }
 
   render() {
     return (
