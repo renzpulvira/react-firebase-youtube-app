@@ -5,7 +5,6 @@ const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
   const handleClick = param => e => {
     const { thumbs, title, video } = param;
     let holder = dataRef;
-    console.log(holder);
     holder.push({
       videoId: video,
       videoThumbs: thumbs,
