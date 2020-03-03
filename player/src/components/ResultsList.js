@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import firebase, { queueDb } from "../firebase";
+import React from "react";
+import firebase from "../firebase";
 
 const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
   const handleClick = param => e => {

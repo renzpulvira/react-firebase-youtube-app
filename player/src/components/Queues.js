@@ -9,6 +9,7 @@ const Queues = ({ dataRef } = this.props) => {
           key={index}
           title={x.videoTitle}
           id={index}
+          videoid={x.videoId}
           dataRef={dataRef}
         />
       ))}
