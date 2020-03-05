@@ -21,14 +21,14 @@ const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
   };
 
   return (
-    <li
+    <div
       data-thumbs={thumbs}
       data-title={title}
       data-video={video}
       onClick={handleClick({ thumbs, title, video })}
     >
       <img src={thumbs} alt="" />
-    </li>
+    </div>
   );
 };
 

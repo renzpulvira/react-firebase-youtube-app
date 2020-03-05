@@ -8,6 +8,8 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -22,7 +24,8 @@ html {
 
 body {
   margin: 0;
-  background: #333;
+  background: #292929;
+  font-family: "Poppins", sans-serif;
 }
 
 /**

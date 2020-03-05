@@ -25,7 +25,6 @@ class Searchbar extends React.Component {
   }
 
   callFunc(term) {
-    let getDate = new Date();
     let holder = [];
 
     searchYoutube(this.state.API_KEY, {
@@ -58,13 +57,13 @@ class Searchbar extends React.Component {
     return (
       <form className="compo-searchbar" onSubmit={this.handleSubmit}>
         <input
-          placeholder="insert Something"
+          placeholder="Search for youtube videos.."
           //onChange={e => this.sendData(e.target.value)}
           onChange={e => this.setTerm(e.target.value)}
         />
         <input
           type="submit"
-          value="search"
+          value="Search"
           onClick={() => this.callFunc(this.state.term)}
         />
       </form>

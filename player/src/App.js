@@ -48,11 +48,10 @@ class App extends React.Component {
 
   renderPlayer(ytId) {
     return (
-      <div>
+      <div className="compo-player">
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${ytId}`}
           playing={this.state.isPlaying}
-          onReady={() => this.setState({ isPlaying: true })}
         />
         <button onClick={() => this.setState({ isPlaying: true })}>Play</button>
         <button onClick={() => this.setState({ isPlaying: false })}>
@@ -67,13 +66,20 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Searchbar search={this.getSearchResults} />
-        <Results
-          searchResults={this.state.results}
-          dataRef={this.state.queues}
-        />
+        {this.state.queues && this.state.queues.length ? (
+          <div>
+            <Results
+              searchResults={this.state.results}
+              dataRef={this.state.queues}
+            />
+          </div>
+        ) : (
+          <div>{/* No Results */}</div>
+        )}
+
         {// TODO: Refactor Code
         this.state.queues && this.state.queues.length ? (
-          <div>
+          <div className="queue-player-wrapper">
             <Queues dataRef={this.state.queues} />
             {this.renderPlayer(this.state.queues[0].videoId)}
           </div>

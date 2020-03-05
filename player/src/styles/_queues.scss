@@ -1,18 +1,49 @@
 .compo-queues {
   width: 50%;
+  list-style: none;
 
-  li {
+  &__item {
+    align-items: center;
     position: relative;
-  }
-
-  li p {
     color: #fff;
-  }
+    display: flex;
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #5d4848;
 
-  li button {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &.header-item {
+      color: #6d6d6d;
+    }
+
+    &-title {
+      flex: 1;
+      align-items: center;
+      width: 100%;
+      max-width: 690px;
+    }
+
+    &-channel,
+    &-duration,
+    &-del-ctrl {
+      flex: 1;
+      width: 100%;
+      max-width: 100px;
+    }
+
+    &-del-ctrl,
+    &-spacer {
+      flex: 1;
+      width: 100%;
+      max-width: 100px;
+      margin-left: 20px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 }

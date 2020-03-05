@@ -17,14 +17,20 @@ const QueuesList = ({ title, id, dataRef } = this.props) => {
     const holder = dataRef;
     const { id } = param;
     let targetVal = holder.splice(id, 1);
-    let result = holder.filter(target => target != targetVal);
+    let result = holder.filter(target => target !== targetVal);
     addToFirebase(result);
   };
 
   return (
-    <li>
-      <p>{title}</p>
-      <button data-id={id} onClick={DeleteQueueData({ id })}>
+    <li className="compo-queues__item">
+      <span className="compo-queues__item-title">{title}</span>
+      <span className="compo-queues__item-channel">Logic</span>
+      <span className="compo-queue__item-duration">4:26</span>
+      <button
+        className="compo-queues__item-del-ctrl"
+        data-id={id}
+        onClick={DeleteQueueData({ id })}
+      >
         DELETE {id}
       </button>
     </li>

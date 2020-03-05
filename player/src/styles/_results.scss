@@ -1,20 +1,32 @@
 .compo-results {
-  overflow-x: scroll;
+  position: relative;
+  padding: 40px 15px 10px;
 
-  ul {
-    display: inline-block;
-    width: 142vw;
-    margin: 0;
-    padding: 10px 15px;
+  h1 {
+    position: fixed;
+    top: 47px;
+    margin-bottom: 0;
+    margin: 5px 0 11px;
+
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #fff;
   }
 
-  ul li {
+  &__swiper {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__swiper li {
     display: inline-block;
     margin-right: 15px;
     border-radius: 15px;
 
     img {
       border-radius: 15px;
+      cursor: pointer;
     }
   }
 }
