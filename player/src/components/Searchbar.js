@@ -31,7 +31,7 @@ class Searchbar extends React.Component {
       q: term,
       part: "snippet",
       type: "video",
-      maxResults: 8
+      maxResults: 12
     })
       .then(res => {
         return res.items.map(x => {
@@ -61,11 +61,7 @@ class Searchbar extends React.Component {
           //onChange={e => this.sendData(e.target.value)}
           onChange={e => this.setTerm(e.target.value)}
         />
-        <input
-          type="submit"
-          value="Search"
-          onClick={() => this.callFunc(this.state.term)}
-        />
+        <input type="submit" value="Search" onClick={() => this.callFunc(this.state.term)} />
       </form>
     );
   }

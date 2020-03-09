@@ -1,4 +1,5 @@
 import React from "react";
+import Swiper from "react-id-swiper";
 import firebase from "../firebase";
 
 const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
@@ -26,6 +27,7 @@ const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
       data-title={title}
       data-video={video}
       onClick={handleClick({ thumbs, title, video })}
+      className="swiper-slide"
     >
       <img src={thumbs} alt="" />
     </div>

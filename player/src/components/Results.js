@@ -6,17 +6,10 @@ const Results = ({ searchResults, dataRef } = this.props) => {
   const [counter, setCounter] = useState([]);
 
   const swiperSettings = {
-    slidesPerView: "auto",
-    pagination: {
-      el: ".swiper-pagination",
-      type: "bullets",
-      clickable: true
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
-    },
-    spaceBetween: 30
+    slidesPerView: 6,
+    spaceBetween: 70,
+    shouldSwiperUpdate: true,
+    freeMode: true
   };
 
   useEffect(() => {
@@ -26,17 +19,19 @@ const Results = ({ searchResults, dataRef } = this.props) => {
   return (
     <div className="compo-results">
       {searchResults && searchResults.length ? <h1>Search Results</h1> : ""}
-      <Swiper className="compo-results__swiper" {...swiperSettings}>
-        {counter.map((x, index) => (
-          <ResultsList
-            key={index}
-            title={x.title}
-            video={x.videoId}
-            thumbs={x.thumbs}
-            dataRef={dataRef}
-          />
-        ))}
-      </Swiper>
+      <ul className="compo-results__swiper">
+        <Swiper {...swiperSettings}>
+          {counter.map((x, index) => (
+            <ResultsList
+              key={index}
+              title={x.title}
+              video={x.videoId}
+              thumbs={x.thumbs}
+              dataRef={dataRef}
+            />
+          ))}
+        </Swiper>
+      </ul>
     </div>
   );
 };

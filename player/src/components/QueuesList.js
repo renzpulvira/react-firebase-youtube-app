@@ -31,7 +31,7 @@ const QueuesList = ({ title, id, dataRef } = this.props) => {
         data-id={id}
         onClick={DeleteQueueData({ id })}
       >
-        DELETE {id}
+        <span></span>
       </button>
     </li>
   );

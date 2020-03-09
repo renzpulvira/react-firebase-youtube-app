@@ -54,9 +54,7 @@ class App extends React.Component {
           playing={this.state.isPlaying}
         />
         <button onClick={() => this.setState({ isPlaying: true })}>Play</button>
-        <button onClick={() => this.setState({ isPlaying: false })}>
-          Pause
-        </button>
+        <button onClick={() => this.setState({ isPlaying: false })}>Pause</button>
       </div>
     );
   }
@@ -66,16 +64,83 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Searchbar search={this.getSearchResults} />
-        {this.state.queues && this.state.queues.length ? (
-          <div>
-            <Results
-              searchResults={this.state.results}
-              dataRef={this.state.queues}
-            />
-          </div>
-        ) : (
-          <div>{/* No Results */}</div>
-        )}
+
+        <Results
+          searchResults={this.state.results}
+          // searchResults={[
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   },
+          //   {
+          //     video: "uoLwyWi7Z4c",
+          //     thumbs: "https://i.ytimg.com/vi/uoLwyWi7Z4c/mqdefault.jpg",
+          //     title: "The Japanese House - Something Has to Change"
+          //   }
+          // ]}
+          dataRef={this.state.queues}
+        />
 
         {// TODO: Refactor Code
         this.state.queues && this.state.queues.length ? (
@@ -84,7 +149,7 @@ class App extends React.Component {
             {this.renderPlayer(this.state.queues[0].videoId)}
           </div>
         ) : (
-          <div>No Data yet</div>
+          <div></div>
         )}
       </React.Fragment>
     );
