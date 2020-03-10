@@ -15,6 +15,18 @@
   &__swiper {
     margin: 0;
     padding: 0;
+
+    .swiper-slide img {
+      position: relative;
+      &:before {
+        content: attr(data-title);
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+      }
+    }
   }
 
   &__swiper li {

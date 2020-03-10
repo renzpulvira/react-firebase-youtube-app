@@ -6,6 +6,8 @@ const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
   const handleClick = param => e => {
     const { thumbs, title, video } = param;
     let holder = dataRef;
+    console.log(holder[0]);
+
     holder.push({
       videoId: video,
       videoThumbs: thumbs,
@@ -16,7 +18,8 @@ const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
       .firestore()
       .collection("queues")
       .doc("availQueues")
-      .update({
+      .set({
+        playing: { videoId: video, videoThumbs: thumbs, videoTitle: title },
         queueLists: holder.map(x => x)
       });
   };

@@ -14,6 +14,7 @@ class App extends React.Component {
       isPlaying: false,
       results: [],
       term: "",
+      playing: {},
       queues: []
     };
   }
@@ -46,12 +47,33 @@ class App extends React.Component {
     this.callLatestQueues();
   }
 
+  prepNextVideo() {
+    var tempQueue = this.state.queues;
+    var bin = tempQueue.shift();
+    this.setState({
+      playing: bin,
+      queues: tempQueue
+    });
+
+    firebase
+      .firestore()
+      .collection("queues")
+      .doc("availQueues")
+      .set({
+        playing: this.state.playing,
+        queueLists: this.state.queues.map(x => x)
+      });
+  }
+
   renderPlayer(ytId) {
     return (
       <div className="compo-player">
+        <button onClick={() => this.prepNextVideo()}>Test me</button>
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${ytId}`}
           playing={this.state.isPlaying}
+          onEnded={() => this.prepNextVideo()}
+          controls
         />
         <button onClick={() => this.setState({ isPlaying: true })}>Play</button>
         <button onClick={() => this.setState({ isPlaying: false })}>Pause</button>
@@ -145,8 +167,9 @@ class App extends React.Component {
         {// TODO: Refactor Code
         this.state.queues && this.state.queues.length ? (
           <div className="queue-player-wrapper">
+            <span>Now Playing: {this.state.playing.videoTitle}</span>
             <Queues dataRef={this.state.queues} />
-            {this.renderPlayer(this.state.queues[0].videoId)}
+            {this.renderPlayer(this.state.playing.videoId)}
           </div>
         ) : (
           <div></div>
