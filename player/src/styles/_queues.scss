@@ -1,6 +1,12 @@
 .compo-queues {
-  width: 50%;
   list-style: none;
+
+  flex: 0 100%;
+  &__wrapper {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   &__item {
     align-items: center;

@@ -1,36 +1,24 @@
 import React from "react";
 import "firebase/firestore";
 import firebase from "../firebase";
-import Fire from "../functions/firestore-methods";
 
 const QueuesList = ({ title, id, dataRef } = this.props) => {
-  // const addToFirebase = (playing, theData) => {
-  //   var fire = new Fire("queues", "availQueues", {
-  //     playing: playing,
-  //     queueLists: theData.map(x => x)
-  //   });
-  //   fire.update();
-  // };
+  const addToFirebase = theData => {
+    firebase
+      .firestore()
+      .collection("queues")
+      .doc("availQueues")
+      .update({
+        queueLists: theData.map(x => x)
+      });
+  };
 
   const DeleteQueueData = param => e => {
     const holder = dataRef;
-    let { id } = param;
+    const { id } = param;
     let targetVal = holder.splice(id, 1);
-    let bin = holder[0];
     let result = holder.filter(target => target !== targetVal);
-    // var fire = new Fire("queues", "availQueues", {
-    //   playing: bin,
-    //   queueLists: result.map(x => x)
-    // });
-    var fire = new Fire(
-      "queues",
-      "availQueues",
-      param.id == 0
-        ? { playing: bin, queueLists: result.map(x => x) }
-        : { queueLists: result.map(x => x) }
-    );
-    fire.update();
-    // addToFirebase(bin, result);
+    addToFirebase(result);
   };
 
   return (
