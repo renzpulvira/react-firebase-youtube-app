@@ -1,7 +1,7 @@
 import React from "react";
 import QueuesList from "./QueuesList";
 
-const Queues = ({ dataRef, nowPlaying } = this.props) => {
+const Queues = ({ dataRef, nowPlaying, nowPlayingHook } = this.props) => {
   return (
     <div className="compo-queues__wrapper">
       <ul className="compo-queues">
@@ -42,6 +42,7 @@ const Queues = ({ dataRef, nowPlaying } = this.props) => {
             id={index}
             videoid={x.videoId}
             dataRef={dataRef}
+            getNowPlaying={nowPlayingHook}
           />
         ))}
       </ul>

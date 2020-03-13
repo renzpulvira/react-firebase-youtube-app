@@ -14,10 +14,6 @@ class Searchbar extends React.Component {
     results: []
   };
 
-  sendData(searchData) {
-    this.props.search(searchData);
-  }
-
   setTerm(data) {
     this.setState({
       term: data
@@ -61,7 +57,11 @@ class Searchbar extends React.Component {
           //onChange={e => this.sendData(e.target.value)}
           onChange={e => this.setTerm(e.target.value)}
         />
-        <input type="submit" value="Search" onClick={() => this.callFunc(this.state.term)} />
+        <input
+          type="submit"
+          value="Search"
+          onClick={() => this.callFunc(this.state.term)}
+        />
       </form>
     );
   }

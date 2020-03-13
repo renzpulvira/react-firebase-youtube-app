@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swiper from "react-id-swiper";
 import ResultsList from "./ResultsList";
 
-const Results = ({ searchResults, dataRef } = this.props) => {
+const Results = ({ searchResults, dataRef, setResultHook } = this.props) => {
   const [counter, setCounter] = useState([]);
 
   const swiperSettings = {
@@ -28,6 +28,7 @@ const Results = ({ searchResults, dataRef } = this.props) => {
               video={x.videoId}
               thumbs={x.thumbs}
               dataRef={dataRef}
+              setSelected={setResultHook}
             />
           ))}
         </Swiper>

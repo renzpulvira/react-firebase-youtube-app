@@ -10,11 +10,12 @@ class Fire {
   }
 
   update() {
-    firebase
+    const unsubscribe = firebase
       .firestore()
       .collection(this.col)
       .doc(this.doc)
       .set(this.cb);
+    return () => unsubscribe();
   }
 
   getQueues() {
@@ -24,7 +25,7 @@ class Fire {
       .doc(this.doc)
       .get()
       .then(this.cb);
-    return unsubscribe;
+    return () => unsubscribe();
   }
 }
 

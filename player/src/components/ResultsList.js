@@ -1,12 +1,11 @@
 import React from "react";
-import Swiper from "react-id-swiper";
-import firebase from "../firebase";
 
-const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
+const ResultsList = (
+  { thumbs, title, video, dataRef, setSelected } = this.props
+) => {
   const handleClick = param => e => {
     const { thumbs, title, video } = param;
     let holder = dataRef;
-    console.log(holder[0]);
 
     holder.push({
       videoId: video,
@@ -14,14 +13,7 @@ const ResultsList = ({ thumbs, title, video, dataRef } = this.props) => {
       videoTitle: title
     });
 
-    firebase
-      .firestore()
-      .collection("queues")
-      .doc("availQueues")
-      .set({
-        playing: { videoId: video, videoThumbs: thumbs, videoTitle: title },
-        queueLists: holder.map(x => x)
-      });
+    setSelected(holder);
   };
 
   return (
