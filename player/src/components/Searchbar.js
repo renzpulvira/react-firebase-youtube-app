@@ -34,7 +34,8 @@ class Searchbar extends React.Component {
           holder.push({
             videoId: x.id.videoId,
             title: x.snippet.title,
-            thumbs: x.snippet.thumbnails.medium.url
+            thumbs: x.snippet.thumbnails.medium.url,
+            channel: x.snippet.channelTitle
           });
         });
       })

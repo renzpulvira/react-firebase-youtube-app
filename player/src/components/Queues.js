@@ -1,10 +1,15 @@
 import React from "react";
 import QueuesList from "./QueuesList";
 
-const Queues = ({ dataRef, nowPlaying, nowPlayingHook } = this.props) => {
+const Queues = (
+  { dataRef, nowPlaying, nowPlayingHook, setNextVideo } = this.props
+) => {
   return (
     <div className="compo-queues__wrapper">
       <ul className="compo-queues">
+        <li className="compo-queues__item header-item">
+          <p>Playing</p>
+        </li>
         <li className="compo-queues__item header-item">
           <span className="compo-queues__item-title header-title">Title</span>
           <span className="compo-queues__item-channel header-channel">
@@ -21,10 +26,18 @@ const Queues = ({ dataRef, nowPlaying, nowPlayingHook } = this.props) => {
           </span>
           <span className="compo-queues__item-channel">Channel</span>
           <span className="compo-queue__item-duration">Duration</span>
-          <span className="compo-queue__item-spacer">&nbsp;</span>
+          <button
+            className="compo-queues__item-del-ctrl"
+            onClick={() => setNextVideo()}
+          >
+            <span></span>
+          </button>
         </li>
       </ul>
       <ul className="compo-queues">
+        <li className="compo-queues__item header-item">
+          <p>Next Up</p>
+        </li>
         <li className="compo-queues__item header-item">
           <span className="compo-queues__item-title header-title">Title</span>
           <span className="compo-queues__item-channel header-channel">
@@ -39,6 +52,7 @@ const Queues = ({ dataRef, nowPlaying, nowPlayingHook } = this.props) => {
           <QueuesList
             key={index}
             title={x.videoTitle}
+            channel={x.videoChannel}
             id={index}
             videoid={x.videoId}
             dataRef={dataRef}

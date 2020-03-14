@@ -62,16 +62,13 @@ class App extends React.Component {
   callLatestQueues() {
     const fire = new Fire("queues", "availQueues", doc => {
       [doc.data()].map(x => {
-        this.setState(
-          { playing: x.playing, queues: x.queueLists },
-          console.log(x)
-        );
+        this.setState({ playing: x.playing, queues: x.queueLists });
       });
     });
     fire.getQueues();
   }
 
-  prepNextVideo() {
+  setNextVideo() {
     var tempQueue = this.state.queues;
     var bin = tempQueue.shift();
 
@@ -109,17 +106,18 @@ class App extends React.Component {
             <Queues
               dataRef={this.state.queues}
               nowPlaying={this.state.playing}
+              setNextVideo={this.setNextVideo.bind(this)}
               nowPlayingHook={this.setNowPlaying}
             />
             <div className="compo-player">
-              <button onClick={() => this.prepNextVideo()}>Test me</button>
+              <button onClick={() => this.setNextVideo()}>Test me</button>
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${this.state.playing.videoId}`}
                 playing={this.state.isPlaying}
                 width={360}
                 height={150}
                 onReady={() => this.setState({ isPlaying: true })}
-                onEnded={() => this.prepNextVideo()}
+                onEnded={() => this.setNextVideo}
                 controls
                 muted={true}
               />

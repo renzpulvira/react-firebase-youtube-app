@@ -1,16 +1,17 @@
 import React from "react";
 
 const ResultsList = (
-  { thumbs, title, video, dataRef, setSelected } = this.props
+  { thumbs, title, video, channel, dataRef, setSelected } = this.props
 ) => {
   const handleClick = param => e => {
-    const { thumbs, title, video } = param;
+    const { thumbs, title, video, channel } = param;
     let holder = dataRef;
 
     holder.push({
       videoId: video,
       videoThumbs: thumbs,
-      videoTitle: title
+      videoTitle: title,
+      videoChannel: channel
     });
 
     setSelected(holder);
@@ -21,10 +22,12 @@ const ResultsList = (
       data-thumbs={thumbs}
       data-title={title}
       data-video={video}
-      onClick={handleClick({ thumbs, title, video })}
+      data-channel={channel}
+      onClick={handleClick({ thumbs, title, video, channel })}
       className="swiper-slide"
     >
       <img src={thumbs} alt="" />
+      <p>{title}</p>
     </div>
   );
 };

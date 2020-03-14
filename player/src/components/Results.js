@@ -7,7 +7,7 @@ const Results = ({ searchResults, dataRef, setResultHook } = this.props) => {
 
   const swiperSettings = {
     slidesPerView: 6,
-    spaceBetween: 70,
+    // spaceBetween: 70,
     shouldSwiperUpdate: true,
     freeMode: true
   };
@@ -26,6 +26,7 @@ const Results = ({ searchResults, dataRef, setResultHook } = this.props) => {
               key={index}
               title={x.title}
               video={x.videoId}
+              channel={x.channel}
               thumbs={x.thumbs}
               dataRef={dataRef}
               setSelected={setResultHook}
