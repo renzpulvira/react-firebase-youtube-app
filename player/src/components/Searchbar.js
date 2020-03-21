@@ -25,11 +25,12 @@ class Searchbar extends React.Component {
 
     searchYoutube(this.state.API_KEY, {
       q: term,
-      part: "snippet",
+      part: "snippet, id",
       type: "video",
       maxResults: 12
     })
       .then(res => {
+        console.log(res);
         return res.items.map(x => {
           holder.push({
             videoId: x.id.videoId,

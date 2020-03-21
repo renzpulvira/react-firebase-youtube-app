@@ -1,4 +1,6 @@
-export const firebaseConfig = {
+import firebase, { initializeApp } from 'firebase';
+
+const firebaseConfig = {
   apiKey: "AIzaSyDuPB3pfKYVe9fqnLvZEALDSZSl34Ge-MU",
   authDomain: "react-playlist-23539.firebaseapp.com",
   databaseURL: "https://react-playlist-23539.firebaseio.com",
@@ -7,3 +9,7 @@ export const firebaseConfig = {
   messagingSenderId: "488900027958",
   appId: "1:488900027958:web:1fa9becee127be1b755a97"
 };
+
+var fire = initializeApp(firebaseConfig)
+
+export default fire

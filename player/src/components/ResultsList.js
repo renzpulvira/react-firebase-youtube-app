@@ -1,4 +1,5 @@
 import React from "react";
+import fire from "../config/Config";
 
 const ResultsList = (
   { thumbs, title, video, channel, dataRef, setSelected } = this.props
@@ -14,7 +15,11 @@ const ResultsList = (
       videoChannel: channel
     });
 
-    setSelected(holder);
+    fire
+      .database()
+      .ref()
+      .child("queueLists")
+      .set(holder);
   };
 
   return (

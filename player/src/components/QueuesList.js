@@ -1,25 +1,30 @@
 import React from "react";
 import "firebase/firestore";
+import fire from "../config/Config";
 
 const QueuesList = (
   { title, id, dataRef, channel, getNowPlaying } = this.props
 ) => {
   const DeleteQueueData = param => e => {
     const holder = dataRef;
-    let { result, bin } = "";
+    let result = "";
     let { id } = param;
-    console.log(id);
     if (param.id > 0) {
-      console.log("not first item");
       let targetVal = holder.splice(id, 1);
       result = holder.filter(target => target !== targetVal);
-      getNowPlaying(undefined, result);
+      fire
+        .database()
+        .ref()
+        .child("queueLists")
+        .set(result);
     } else {
-      holder.shift();
-      bin = holder[0];
-      holder.shift();
-      result = holder;
-      getNowPlaying(bin, result);
+      result = [...holder];
+      result.shift();
+      fire
+        .database()
+        .ref()
+        .child("queueLists")
+        .set(result);
     }
   };
 

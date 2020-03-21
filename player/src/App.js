@@ -3,9 +3,7 @@ import ReactPlayer from "react-player";
 import Results from "./components/Results";
 import Searchbar from "./components/Searchbar";
 import Queues from "./components/Queues";
-import firebase from "firebase";
-import "firebase/firestore";
-import Fire from "./functions/firestore-methods";
+import fire from "./config/Config";
 
 class App extends React.Component {
   constructor() {
@@ -20,72 +18,67 @@ class App extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.state.queues) {
-      console.warn("Updated!");
-    }
+  getData = ref => {
+    return new Promise((resolve, reject) => {
+      const onError = error => reject(error);
+      const onData = snap => resolve(snap.val());
+
+      ref.on("value", onData);
+    });
+  };
+
+  componentDidMount() {
+    fire
+      .database()
+      .ref()
+      .on("value", snapShot => {
+        if (!snapShot.val().queueLists) {
+          fire
+            .database()
+            .ref()
+            .set({
+              playing: {
+                videoId: "utCjuKDXQsE",
+                videoThumbs: "https://i.ytimg.com/vi/utCjuKDXQsE/mqdefault.jpg",
+                videoChannel: "THEO",
+                videoTitle: "Tame Impala - Lost in Yesterday (Official Video)"
+              },
+              queueLists: {
+                0: {
+                  videoChannel: "tameimpalaVEVO",
+                  videoId: "sBzrzS1Ag_g",
+                  videoThumbs:
+                    "https://i.ytimg.com/vi/sBzrzS1Ag_g/mqdefault.jpg",
+                  videoTitle:
+                    "Tame Impala - The Less I Know The Better (Official Video)"
+                }
+              }
+            });
+        } else {
+          this.setState({
+            playing: snapShot.val().playing,
+            queues: snapShot.val().queueLists
+          });
+        }
+      });
   }
 
-  componentWillMount() {
-    this.callLatestQueues();
-  }
+  componentWillMount() {}
 
   setSearchResults = childResults => {
     this.setState({ results: childResults });
   };
 
-  setSelectedResult = selectedResult => {
-    firebase
-      .firestore()
-      .collection("queues")
-      .doc("availQueues")
-      .set({
-        playing: this.state.playing,
-        queueLists: selectedResult
-      })
-      .then(this.setState({ queueLists: selectedResult }));
-  };
-
-  setNowPlaying = (childNowPlaying = this.state.playing, newQueues) => {
-    const unsubscribe = firebase
-      .firestore()
-      .collection("queues")
-      .doc("availQueues")
-      .update({ playing: childNowPlaying, queueLists: newQueues })
-      .then(
-        this.setState({ playing: childNowPlaying, queues: newQueues }),
-        console.log(this.state.playing, this.state.queues)
-      );
-    return () => unsubscribe();
-  };
-
-  callLatestQueues() {
-    const fire = new Fire("queues", "availQueues", doc => {
-      [doc.data()].map(x => {
-        this.setState({ playing: x.playing, queues: x.queueLists });
-      });
-    });
-    fire.getQueues();
-  }
-
   setNextVideo() {
-    var tempQueue = this.state.queues;
-    var bin = tempQueue.shift();
+    const tempData = [...this.state.queues];
+    let bin = tempData.shift();
 
-    firebase
-      .firestore()
-      .collection("queues")
-      .doc("availQueues")
-      .set({
-        playing: bin,
-        queueLists: tempQueue.map(x => x)
-      })
-      .then(
-        this.setState({
-          playing: bin,
-          queues: tempQueue
-        })
-      );
+    fire
+      .database()
+      .ref()
+      .set({ playing: bin, queueLists: tempData }, () => {
+        console.log("Data Pushed");
+      });
   }
 
   // https://www.youtube.com/watch?v=ELrQyUIQkiY
@@ -101,7 +94,7 @@ class App extends React.Component {
         />
 
         {// TODO: Refactor Code
-        this.state.queues && this.state.queues.length ? (
+        this.state.playing ? (
           <div className="queue-player-wrapper">
             <Queues
               dataRef={this.state.queues}
