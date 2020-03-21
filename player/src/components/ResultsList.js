@@ -2,7 +2,7 @@ import React from "react";
 import fire from "../config/Config";
 
 const ResultsList = (
-  { thumbs, title, video, channel, dataRef, setSelected } = this.props
+  { thumbs, title, video, channel, dataRef } = this.props
 ) => {
   const handleClick = param => e => {
     const { thumbs, title, video, channel } = param;
@@ -17,8 +17,7 @@ const ResultsList = (
 
     fire
       .database()
-      .ref()
-      .child("queueLists")
+      .ref("queueLists")
       .set(holder);
   };
 

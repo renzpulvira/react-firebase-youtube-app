@@ -1,6 +1,5 @@
 import React from "react";
 import ReactPlayer from "react-player";
-import Results from "./components/Results";
 import Searchbar from "./components/Searchbar";
 import Queues from "./components/Queues";
 import fire from "./config/Config";
@@ -85,13 +84,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Searchbar search={this.setSearchResults} />
-
-        <Results
-          searchResults={this.state.results}
-          dataRef={this.state.queues}
-          setResultHook={this.setSelectedResult}
-        />
+        <Searchbar search={this.setSearchResults} dataRef={this.state.queues} />
 
         {// TODO: Refactor Code
         this.state.playing ? (
@@ -100,7 +93,6 @@ class App extends React.Component {
               dataRef={this.state.queues}
               nowPlaying={this.state.playing}
               setNextVideo={this.setNextVideo.bind(this)}
-              nowPlayingHook={this.setNowPlaying}
             />
             <div className="compo-player">
               <button onClick={() => this.setNextVideo()}>Test me</button>

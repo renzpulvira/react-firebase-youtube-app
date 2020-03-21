@@ -2,17 +2,25 @@ import React, { useEffect, useState } from "react";
 import Swiper from "react-id-swiper";
 import ResultsList from "./ResultsList";
 
-const Results = ({ searchResults, dataRef, setResultHook } = this.props) => {
+const Results = ({ searchResults, dataRef, increaseResults } = this.props) => {
   const [counter, setCounter] = useState([]);
+
+  const handleSwipeEnd = () => {
+    alert("swipe on end point");
+  };
 
   const swiperSettings = {
     slidesPerView: 6,
     // spaceBetween: 70,
     shouldSwiperUpdate: true,
-    freeMode: true
+    freeMode: true,
+    on: {
+      reachEnd: () => increaseResults()
+    }
   };
 
   useEffect(() => {
+    console.log(searchResults);
     setCounter(searchResults);
   }, [searchResults]);
 
@@ -29,7 +37,6 @@ const Results = ({ searchResults, dataRef, setResultHook } = this.props) => {
               channel={x.channel}
               thumbs={x.thumbs}
               dataRef={dataRef}
-              setSelected={setResultHook}
             />
           ))}
         </Swiper>

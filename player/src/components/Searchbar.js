@@ -1,22 +1,25 @@
 import React from "react";
 import searchYoutube from "youtube-api-v3-search";
+import Results from "./Results";
 
 class Searchbar extends React.Component {
   state = {
     term: "",
     API_KEY: "AIzaSyDNGKLlOY5A1pjNSY2S3kSXRLHY8ao3UwU",
+    maxResults: 8,
     options: {
       q: "nodejs",
       part: "snippet",
       type: "video",
-      maxResults: 8
+      maxResults: 6
     },
     results: []
   };
 
   setTerm(data) {
     this.setState({
-      term: data
+      term: data,
+      maxResults: 8
     });
   }
 
@@ -25,12 +28,11 @@ class Searchbar extends React.Component {
 
     searchYoutube(this.state.API_KEY, {
       q: term,
-      part: "snippet, id",
+      part: "snippet",
       type: "video",
-      maxResults: 12
+      maxResults: this.state.maxResults
     })
       .then(res => {
-        console.log(res);
         return res.items.map(x => {
           holder.push({
             videoId: x.id.videoId,
@@ -40,7 +42,7 @@ class Searchbar extends React.Component {
           });
         });
       })
-      .then(() => this.props.search(holder));
+      .then(() => this.setState({ results: holder }));
   }
 
   handleSubmit(e) {
@@ -51,20 +53,44 @@ class Searchbar extends React.Component {
   //   this.callFunc(this.state.options.q);
   // }
 
+  setMaxResults = () => {
+    let defResults = this.state.maxResults;
+    this.setState(
+      {
+        maxResults: defResults + 8
+      },
+      () => this.callFunc(this.state.term)
+    );
+  };
+
   render() {
     return (
-      <form className="compo-searchbar" onSubmit={this.handleSubmit}>
-        <input
-          placeholder="Search for youtube videos.."
-          //onChange={e => this.sendData(e.target.value)}
-          onChange={e => this.setTerm(e.target.value)}
-        />
-        <input
-          type="submit"
-          value="Search"
-          onClick={() => this.callFunc(this.state.term)}
-        />
-      </form>
+      <div>
+        <form className="compo-searchbar" onSubmit={this.handleSubmit}>
+          <input
+            placeholder="Search for youtube videos.."
+            //onChange={e => this.sendData(e.target.value)}
+            onChange={e => this.setTerm(e.target.value)}
+          />
+          <input
+            type="submit"
+            value="Search"
+            onClick={() => this.callFunc(this.state.term)}
+          />
+        </form>
+        {this.state.results.length > 0 ? (
+          <div>
+            <Results
+              searchResults={this.state.results}
+              dataRef={this.props.dataRef}
+              increaseResults={this.setMaxResults.bind(this)}
+            />
+            <button onClick={() => this.loadMore()}>Load more</button>
+          </div>
+        ) : (
+          <span></span>
+        )}
+      </div>
     );
   }
 }
