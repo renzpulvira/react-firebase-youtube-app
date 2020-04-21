@@ -11,15 +11,15 @@ class Searchbar extends React.Component {
       q: "nodejs",
       part: "snippet",
       type: "video",
-      maxResults: 6
+      maxResults: 8,
     },
-    results: []
+    results: [],
   };
 
   setTerm(data) {
     this.setState({
       term: data,
-      maxResults: 8
+      maxResults: 8,
     });
   }
 
@@ -30,15 +30,15 @@ class Searchbar extends React.Component {
       q: term,
       part: "snippet",
       type: "video",
-      maxResults: this.state.maxResults
+      maxResults: this.state.maxResults,
     })
-      .then(res => {
-        return res.items.map(x => {
+      .then((res) => {
+        return res.items.map((x) => {
           holder.push({
             videoId: x.id.videoId,
             title: x.snippet.title,
             thumbs: x.snippet.thumbnails.medium.url,
-            channel: x.snippet.channelTitle
+            channel: x.snippet.channelTitle,
           });
         });
       })
@@ -57,7 +57,7 @@ class Searchbar extends React.Component {
     let defResults = this.state.maxResults;
     this.setState(
       {
-        maxResults: defResults + 8
+        maxResults: defResults + 3,
       },
       () => this.callFunc(this.state.term)
     );
@@ -70,7 +70,7 @@ class Searchbar extends React.Component {
           <input
             placeholder="Search for youtube videos.."
             //onChange={e => this.sendData(e.target.value)}
-            onChange={e => this.setTerm(e.target.value)}
+            onChange={(e) => this.setTerm(e.target.value)}
           />
           <input
             type="submit"
@@ -83,9 +83,8 @@ class Searchbar extends React.Component {
             <Results
               searchResults={this.state.results}
               dataRef={this.props.dataRef}
-              increaseResults={this.setMaxResults.bind(this)}
+              // increaseResults={this.setMaxResults.bind(this)}
             />
-            <button onClick={() => this.loadMore()}>Load more</button>
           </div>
         ) : (
           <span></span>

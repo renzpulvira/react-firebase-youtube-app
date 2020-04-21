@@ -101,7 +101,7 @@ class App extends React.Component {
                 playing={this.state.isPlaying}
                 width={360}
                 height={150}
-                onReady={() => this.setState({ isPlaying: true })}
+                // onReady={() => this.setState({ isPlaying: true })}
                 onEnded={() => this.setNextVideo}
                 controls
                 muted={true}

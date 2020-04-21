@@ -1,6 +1,7 @@
 import React from "react";
 import "firebase/firestore";
 import fire from "../config/Config";
+import { Draggable } from "react-beautiful-dnd";
 
 const QueuesList = (
   { title, id, dataRef, channel, getNowPlaying } = this.props
@@ -29,18 +30,27 @@ const QueuesList = (
   };
 
   return (
-    <li className="compo-queues__item">
-      <span className="compo-queues__item-title">{title}</span>
-      <span className="compo-queues__item-channel">{channel}</span>
-      <span className="compo-queue__item-duration">4:26</span>
-      <button
-        className="compo-queues__item-del-ctrl"
-        data-id={id}
-        onClick={DeleteQueueData({ id })}
-      >
-        <span></span>
-      </button>
-    </li>
+    <Draggable draggableId={String(id)} index={id}>
+      {provided => (
+        <li
+          className="compo-queues__item"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <span className="compo-queues__item-title">{title}</span>
+          <span className="compo-queues__item-channel">{channel}</span>
+          <span className="compo-queue__item-duration">4:26</span>
+          <button
+            className="compo-queues__item-del-ctrl"
+            data-id={id}
+            onClick={DeleteQueueData({ id })}
+          >
+            <span></span>
+          </button>
+        </li>
+      )}
+    </Draggable>
   );
 };
 
