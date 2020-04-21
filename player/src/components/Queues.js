@@ -58,7 +58,7 @@ const Queues = (
       </ul>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
-          {(provided) => (
+          {(provided, snapshot) => (
             <ul
               className="compo-queues"
               {...provided.droppableProps}

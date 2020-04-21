@@ -4,7 +4,7 @@ import fire from "../config/Config";
 const ResultsList = (
   { thumbs, title, video, channel, dataRef } = this.props
 ) => {
-  const handleClick = param => e => {
+  const handleClick = (param) => (e) => {
     const { thumbs, title, video, channel } = param;
     let holder = dataRef;
 
@@ -12,13 +12,10 @@ const ResultsList = (
       videoId: video,
       videoThumbs: thumbs,
       videoTitle: title,
-      videoChannel: channel
+      videoChannel: channel,
     });
 
-    fire
-      .database()
-      .ref("queueLists")
-      .set(holder);
+    fire.database().ref("queueLists").set(holder);
   };
 
   return (

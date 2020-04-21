@@ -36,9 +36,9 @@ class Searchbar extends React.Component {
         return res.items.map((x) => {
           holder.push({
             videoId: x.id.videoId,
-            title: x.snippet.title,
+            title: x.snippet.title.replace("&#39;", "'"),
             thumbs: x.snippet.thumbnails.medium.url,
-            channel: x.snippet.channelTitle,
+            channel: x.snippet.channelTitle.replace("&#39;", "'"),
           });
         });
       })

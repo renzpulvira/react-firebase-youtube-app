@@ -13,14 +13,17 @@ class App extends React.Component {
       results: [],
       term: "",
       playing: {},
-      queues: []
+      isMuted: false,
+      queues: [],
     };
+
+    this.myRef = React.createRef();
   }
 
-  getData = ref => {
+  getData = (ref) => {
     return new Promise((resolve, reject) => {
-      const onError = error => reject(error);
-      const onData = snap => resolve(snap.val());
+      const onError = (error) => reject(error);
+      const onData = (snap) => resolve(snap.val());
 
       ref.on("value", onData);
     });
@@ -30,7 +33,7 @@ class App extends React.Component {
     fire
       .database()
       .ref()
-      .on("value", snapShot => {
+      .on("value", (snapShot) => {
         if (!snapShot.val().queueLists) {
           fire
             .database()
@@ -40,7 +43,7 @@ class App extends React.Component {
                 videoId: "utCjuKDXQsE",
                 videoThumbs: "https://i.ytimg.com/vi/utCjuKDXQsE/mqdefault.jpg",
                 videoChannel: "THEO",
-                videoTitle: "Tame Impala - Lost in Yesterday (Official Video)"
+                videoTitle: "Tame Impala - Lost in Yesterday (Official Video)",
               },
               queueLists: {
                 0: {
@@ -49,14 +52,14 @@ class App extends React.Component {
                   videoThumbs:
                     "https://i.ytimg.com/vi/sBzrzS1Ag_g/mqdefault.jpg",
                   videoTitle:
-                    "Tame Impala - The Less I Know The Better (Official Video)"
-                }
-              }
+                    "Tame Impala - The Less I Know The Better (Official Video)",
+                },
+              },
             });
         } else {
           this.setState({
             playing: snapShot.val().playing,
-            queues: snapShot.val().queueLists
+            queues: snapShot.val().queueLists,
           });
         }
       });
@@ -64,7 +67,7 @@ class App extends React.Component {
 
   componentWillMount() {}
 
-  setSearchResults = childResults => {
+  setSearchResults = (childResults) => {
     this.setState({ results: childResults });
   };
 
@@ -72,12 +75,7 @@ class App extends React.Component {
     const tempData = [...this.state.queues];
     let bin = tempData.shift();
 
-    fire
-      .database()
-      .ref()
-      .set({ playing: bin, queueLists: tempData }, () => {
-        console.log("Data Pushed");
-      });
+    fire.database().ref().set({ playing: bin, queueLists: tempData });
   }
 
   // https://www.youtube.com/watch?v=ELrQyUIQkiY
@@ -86,37 +84,49 @@ class App extends React.Component {
       <React.Fragment>
         <Searchbar search={this.setSearchResults} dataRef={this.state.queues} />
 
-        {// TODO: Refactor Code
-        this.state.playing ? (
-          <div className="queue-player-wrapper">
-            <Queues
-              dataRef={this.state.queues}
-              nowPlaying={this.state.playing}
-              setNextVideo={this.setNextVideo.bind(this)}
-            />
-            <div className="compo-player">
-              <button onClick={() => this.setNextVideo()}>Test me</button>
-              <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${this.state.playing.videoId}`}
-                playing={this.state.isPlaying}
-                width={360}
-                height={150}
-                // onReady={() => this.setState({ isPlaying: true })}
-                onEnded={() => this.setNextVideo}
-                controls
-                muted={true}
+        {
+          // TODO: Refactor Code
+          this.state.playing ? (
+            <div className="queue-player-wrapper">
+              <Queues
+                dataRef={this.state.queues}
+                nowPlaying={this.state.playing}
+                setNextVideo={this.setNextVideo.bind(this)}
               />
-              <button onClick={() => this.setState({ isPlaying: true })}>
-                Play
-              </button>
-              <button onClick={() => this.setState({ isPlaying: false })}>
-                Pause
-              </button>
+              <div className="compo-player">
+                <ReactPlayer
+                  url={`https://www.youtube.com/watch?v=${this.state.playing.videoId}`}
+                  playing={this.state.isPlaying}
+                  width={360}
+                  height={150}
+                  onEnded={() => this.setNextVideo}
+                  controls={false}
+                  muted={this.state.isMuted}
+                  ref={this.myRef}
+                />
+                <button
+                  onClick={() => {
+                    this.setState({ isPlaying: true });
+                  }}
+                >
+                  Play
+                </button>
+                <button onClick={() => this.setState({ isPlaying: false })}>
+                  Pause
+                </button>
+                <button
+                  onClick={() =>
+                    this.setState({ isMuted: !this.state.isMuted })
+                  }
+                >
+                  Mute
+                </button>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div></div>
-        )}
+          ) : (
+            <div></div>
+          )
+        }
       </React.Fragment>
     );
   }

@@ -6,37 +6,41 @@ import { Draggable } from "react-beautiful-dnd";
 const QueuesList = (
   { title, id, dataRef, channel, getNowPlaying } = this.props
 ) => {
-  const DeleteQueueData = param => e => {
+  const DeleteQueueData = (param) => (e) => {
     const holder = dataRef;
     let result = "";
     let { id } = param;
     if (param.id > 0) {
       let targetVal = holder.splice(id, 1);
-      result = holder.filter(target => target !== targetVal);
-      fire
-        .database()
-        .ref()
-        .child("queueLists")
-        .set(result);
+      result = holder.filter((target) => target !== targetVal);
+      fire.database().ref().child("queueLists").set(result);
     } else {
       result = [...holder];
       result.shift();
-      fire
-        .database()
-        .ref()
-        .child("queueLists")
-        .set(result);
+      fire.database().ref().child("queueLists").set(result);
     }
   };
 
+  const getItemStyle = (isDragging, draggableStyle) => ({
+    transition: "all .2s ease-in-out",
+    borderRadius: isDragging ? "8px" : "0",
+    background: isDragging ? "#543d3d" : "transparent",
+    boxShadow: isDragging ? "0px 2px 3px #111" : "none",
+    ...draggableStyle,
+  });
+
   return (
     <Draggable draggableId={String(id)} index={id}>
-      {provided => (
+      {(provided, snapshot) => (
         <li
           className="compo-queues__item"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          style={getItemStyle(
+            snapshot.isDragging,
+            provided.draggableProps.style
+          )}
         >
           <span className="compo-queues__item-title">{title}</span>
           <span className="compo-queues__item-channel">{channel}</span>
