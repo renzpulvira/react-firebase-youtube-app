@@ -16,7 +16,7 @@
     "react-id-swiper": "^3.0.0",
     "react-player": "^1.14.2",
     "react-scripts": "3.3.1",
-    "swiper": "^5.3.6",
+    "swiper": "^6.5.1",
     "youtube-api-v3-search": "^1.2.1"
   },
   "scripts": {
